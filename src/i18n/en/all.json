@@ -1,0 +1,4 @@
+{
+  "HELLO_MESSAGE": "Hello {username}",
+  "model_not_exist":"{modelName} not found"
+}

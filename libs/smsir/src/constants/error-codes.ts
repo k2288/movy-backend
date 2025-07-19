@@ -1,0 +1,7 @@
+export enum SmsirErrorCode {
+    SEND_FAILED = 7000,
+    BULK_SEND_FAILED = 7001,
+    SERVICE_ERROR = 7002,
+    INVALID_API_KEY = 7003,
+    INSUFFICIENT_CREDIT = 7004
+} 

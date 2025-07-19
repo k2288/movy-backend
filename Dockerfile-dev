@@ -1,0 +1,16 @@
+FROM node:20
+
+RUN npm install -g nodemon
+RUN npm i -g @nestjs/cli
+
+
+# Create app directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+# Bundle app source
+COPY . /usr/src/app
+# RUN yarn install
+
+EXPOSE 3000
+CMD [ "npm" , "run" ,"start:dev"]

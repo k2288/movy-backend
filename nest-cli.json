@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "tsconfig.json",
+    "assets": [
+      "i18n/**/*"
+    ],
+    "watchAssets": true
+  },
+  "projects": {
+    "setareh": {
+      "type": "library",
+      "root": "libs/setareh",
+      "entryFile": "index",
+      "sourceRoot": "libs/setareh/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/setareh/tsconfig.lib.json"
+      }
+    },
+    "payamsms": {
+      "type": "library",
+      "root": "libs/payamsms",
+      "entryFile": "index",
+      "sourceRoot": "libs/payamsms/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/payamsms/tsconfig.lib.json"
+      }
+    },
+    "smsir": {
+      "type": "library",
+      "root": "libs/smsir",
+      "entryFile": "index",
+      "sourceRoot": "libs/smsir/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/smsir/tsconfig.lib.json"
+      }
+    }
+  }
+}

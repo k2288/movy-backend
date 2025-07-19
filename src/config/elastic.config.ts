@@ -1,0 +1,1 @@
+export const ELASTIC_INDEX_PREFIX = process.env.ELASTIC_INDEX_PREFIX || 'gold'; 

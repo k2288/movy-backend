@@ -1,0 +1,17 @@
+export enum ErrorCode {
+    // Auth related errors: 1000-1999
+    USER_NOT_FOUND = 1000,
+    INVALID_CREDENTIALS = 1001,
+    INVALID_OTP = 1002,
+    OTP_EXPIRED = 1003,
+    USER_EXISTS = 1004,
+    REGISTRATION_EXPIRED = 1005,
+
+    // Validation related errors: 2000-2999
+    I18N_ERROR = 2000,
+    VALIDATION_ERROR = 2001,
+    INVALID_MOBILE = 2002,
+    INVALID_NATIONAL_CODE = 2003,
+    INVALID_PASSWORD = 2004,
+
+} 

@@ -1,0 +1,40 @@
+name: Loana backend App Devekop Actions
+run-name: ${{ github.actor }} run Actions 🚀
+on: 
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Docker image
+        run: docker build -t loana-backend:latest -f Dockerfile-github .
+
+      - name: Save Docker image as tar file
+        run: docker save -o loana-backend.tar loana-backend:latest
+
+      - name: Transfer Docker image to remote server
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.CMS_STAGE_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          scp -o StrictHostKeyChecking=no loana-backend.tar ${{ secrets.CMS_STAGE_REMOTE_SERVER_USERNAME }}@${{ secrets.CMS_STAGE_REMOTE_SERVER_ADDRESS }}:${{ secrets.CMS_STAGE_REMOTE_SERVER_DOCKER_PATH }}
+
+      - name: Load Docker image on remote server
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.CMS_STAGE_REMOTE_SERVER_USERNAME }}@${{ secrets.CMS_STAGE_REMOTE_SERVER_ADDRESS }} << 'ENDSSH'
+          docker system prune -f
+          docker ps -a --filter ancestor=loana-backend:latest -q | xargs docker rm -f
+          docker load -i ${{ secrets.CMS_STAGE_REMOTE_SERVER_DOCKER_PATH }}/loana-backend.tar
+          ENDSSH
+
+      - name: Deploy Docker containers using Docker Compose on remote server
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.CMS_STAGE_REMOTE_SERVER_USERNAME }}@${{ secrets.CMS_STAGE_REMOTE_SERVER_ADDRESS }} << 'ENDSSH'
+          docker compose -f ${{ secrets.CMS_STAGE_REMOTE_SERVER_PATH }}/docker-compose-prod.yml up -d
+          ENDSSH

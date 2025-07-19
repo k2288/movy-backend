@@ -1,0 +1,7 @@
+export enum PayamsmsErrorCode {
+    SEND_FAILED = 6000,
+    BULK_SEND_FAILED = 6001,
+    SERVICE_ERROR = 6002,
+    INVALID_CREDENTIALS = 6003,
+    INSUFFICIENT_CREDIT = 6004
+} 

@@ -1,0 +1,10 @@
+{
+  "name": "@app/smsir",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@nestjs/common": "^10.0.0",
+    "@nestjs/core": "^10.0.0",
+    "@nestjs/config": "^3.0.0",
+    "axios": "^1.6.0"
+  }
+} 
