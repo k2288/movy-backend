@@ -21,7 +21,8 @@
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:generate": "npm run typeorm -- -d typeorm.config.ts migration:generate",
     "migration:run": "npm run typeorm -- -d typeorm.config.ts migration:run",
-    "migration:revert": "npm run typeorm -- -d typeorm.config.ts migration:revert"
+    "migration:revert": "npm run typeorm -- -d typeorm.config.ts migration:revert",
+    "seed": "ts-node src/database/seed.ts"
   },
   "dependencies": {
     "@elastic/elasticsearch": "^8.16.2",

@@ -1,0 +1,37 @@
+I’m building a NestJS backend for a Flutter movie/TV app using MySQL and TypeORM.
+
+Please generate complete backend code (entities, DTOs, services, controllers, Swagger decorators, and seeders) for the following modules:
+
+1. **Movies**
+   - GET /movies → return paginated list
+   - GET /movies/:id → return full detail
+   - GET /movies/:id/credits → return cast/crew
+
+2. **Series**
+   - GET /series
+   - GET /series/:id
+   - GET /series/:id/seasons
+   - GET /series/:id/season/:seasonNumber
+
+3. **People**
+   - GET /people
+   - GET /people/:id
+
+4. **Search**
+   - GET /search?q=keyword&type=movie|series|person
+
+**Requirements:**
+- Use **TypeORM** with **MySQL**
+- All text fields (title, description, name, etc.) must be in **Farsi** only
+- Use camelCase in all JSON responses
+- Use `class-validator` decorators in DTOs
+- Add `@ApiProperty()` Swagger decorators
+- Return paginated responses where needed: `{ page, totalResults, totalPages, results }`
+- Media objects should include: `id`, `title`, `description`, `releaseDate`, `voteAverage`, `posterPath`, `backdropPath`, `genres: [{ id, name }]`
+- Cast should include: `id`, `name`, `character`, `profilePath`
+- Series and episodes should follow same structure
+- Generate realistic Farsi-language seed data for all entities
+
+Project base: NestJS + TypeORM template (already set up)
+
+Goal: Flutter app (https://github.com/k2288/flutter-movies) should be able to consume these endpoints **without frontend changes**.
