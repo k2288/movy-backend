@@ -6,6 +6,17 @@
         "maxLength": "طول فیلد {property} باید حداکثر {max} کاراکتر باشد",
         "matches": "فرمت {property} صحیح نیست"
     },
+    "number": {
+        "invalid": "فیلد {property} باید عدد باشد",
+        "min": "فیلد {property} باید حداقل {min} باشد",
+        "max": "فیلد {property} باید حداکثر {max} باشد"
+    },
+    "boolean": {
+        "invalid": "فیلد {property} باید true یا false باشد"
+    },
+    "array": {
+        "invalid": "فیلد {property} باید آرایه باشد"
+    },
     "url": {
         "invalid": "آدرس وارد شده معتبر نیست"
     },

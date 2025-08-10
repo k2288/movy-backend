@@ -18,6 +18,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { UserModule } from './user/user.module';
 import { TaskModule } from './task/task.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { MoviesModule } from './movies/movies.module';
 
 @Module({
   imports: [
@@ -110,6 +111,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     UserModule,
     TaskModule,
     DashboardModule,
+    MoviesModule,
   ],
   controllers: [AppController],
   providers: [
