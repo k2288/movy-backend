@@ -25,12 +25,12 @@ export class Cast {
 
   @ApiProperty({ description: 'شخص مربوطه', type: () => 'Person' })
   @ManyToOne('Person', 'casts', { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'person_id' })
+  @JoinColumn({ name: 'personId' })
   person: any;
 
   @ApiProperty({ description: 'فیلم مربوطه', type: () => 'Movie' })
   @ManyToOne('Movie', 'casts', { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'movie_id' })
+  @JoinColumn({ name: 'movieId' })
   movie: any;
 
   @ApiProperty({ description: 'تاریخ ایجاد' })

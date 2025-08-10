@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { NetworkImageUriResponseDto } from './network-image-uri-response.dto';
 
 export class NetworkResponseDto {
   @ApiProperty({ description: 'شناسه یکتای شبکه', example: 1 })
@@ -7,12 +8,7 @@ export class NetworkResponseDto {
   @ApiProperty({ description: 'نام شبکه', example: 'HBO' })
   name: string;
 
-  @ApiProperty({ description: 'تصاویر شبکه', example: ['https://example.com/logo.png'] })
-  imageUris: string[];
+  @ApiProperty({ description: 'تصاویر شبکه', type: [NetworkImageUriResponseDto] })
+  imageUris: { [key: string]: string } [];
 
-  @ApiProperty({ description: 'تاریخ ایجاد' })
-  createdAt: Date;
-
-  @ApiProperty({ description: 'تاریخ بروزرسانی' })
-  updatedAt: Date;
 } 

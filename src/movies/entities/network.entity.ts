@@ -1,6 +1,7 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, ManyToMany } from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, ManyToMany, OneToMany } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Movie } from './movie.entity';
+import { NetworkImageUri } from './network-image-uri.entity';
 
 @Entity('networks')
 export class Network {
@@ -12,9 +13,9 @@ export class Network {
   @Column({ type: 'varchar', length: 255, nullable: false, unique: true })
   name: string;
 
-  @ApiProperty({ description: 'تصاویر شبکه', type: [String] })
-  @Column({ type: 'json', nullable: true })
-  imageUris: string[];
+  @ApiProperty({ description: 'تصاویر شبکه', type: [NetworkImageUri] })
+  @OneToMany(() => NetworkImageUri, imageUri => imageUri.network, { cascade: true })
+  imageUris: NetworkImageUri[];
 
   @ApiProperty({ description: 'تاریخ ایجاد' })
   @CreateDateColumn()

@@ -23,19 +23,20 @@ import { Genre } from './entities/genre.entity';
 import { Studio } from './entities/studio.entity';
 import { ImageUri } from './entities/image-uri.entity';
 import { Person } from './entities/person.entity';
+import { PersonImageUri } from './entities/person-image-uri.entity';
 import { Cast } from './entities/cast.entity';
 import { Network } from './entities/network.entity';
+import { NetworkImageUri } from './entities/network-image-uri.entity';
 import { Season } from './entities/season.entity';
+import { SeasonImageUri } from './entities/season-image-uri.entity';
 import { Episode } from './entities/episode.entity';
+import { EpisodeImageUri } from './entities/episode-image-uri.entity';
 import { MovieSeeder } from './seeders/movie.seeder';
 import { GenreSeeder } from './seeders/genre.seeder';
 import { StudioSeeder } from './seeders/studio.seeder';
-import { PersonImageUri } from './entities/person-image-uri.entity';
-import { EpisodeImageUri } from './entities/episode-image-uri.entity';
-import { SeasonImageUri } from './entities/season-image-uri.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Movie, Genre, Studio, ImageUri, Person, Cast, Network, Season, Episode, PersonImageUri ,SeasonImageUri, EpisodeImageUri ])],
+  imports: [TypeOrmModule.forFeature([Movie, Genre, Studio, ImageUri, Person, PersonImageUri, Cast, Network, NetworkImageUri, Season, SeasonImageUri, Episode, EpisodeImageUri])],
   controllers: [MoviesController, GenresController, StudiosController, ImageUrisController, PersonsController, CastsController, NetworksController, SeasonsController, EpisodesController],
   providers: [MoviesService, GenresService, StudiosService, ImageUrisService, PersonsService, CastsService, NetworksService, SeasonsService, EpisodesService, MovieSeeder, GenreSeeder, StudioSeeder],
   exports: [MoviesService, GenresService, StudiosService, ImageUrisService, PersonsService, CastsService, NetworksService, SeasonsService, EpisodesService],

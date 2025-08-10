@@ -20,19 +20,28 @@ export class NetworksService {
   }
 
   async findAll(): Promise<NetworkResponseDto[]> {
-    const list = await this.networkRepository.find({ order: { name: 'ASC' } });
+    const list = await this.networkRepository.find({ 
+      order: { name: 'ASC' },
+      relations: ['imageUris']
+    });
     return list.map(this.map);
   }
 
   async findOne(id: number): Promise<NetworkResponseDto> {
-    const network = await this.networkRepository.findOne({ where: { id } });
+    const network = await this.networkRepository.findOne({ 
+      where: { id },
+      relations: ['imageUris']
+    });
     if (!network) throw new NotFoundException(`شبکه با شناسه ${id} یافت نشد`);
     return this.map(network);
   }
 
   async findByIds(ids: number[]): Promise<Network[]> {
     if (!ids || ids.length === 0) return [];
-    const networks = await this.networkRepository.find({ where: { id: In(ids) } });
+    const networks = await this.networkRepository.find({ 
+      where: { id: In(ids) },
+      relations: ['imageUris']
+    });
     if (networks.length !== ids.length) {
       const found = networks.map(n => n.id);
       const missing = ids.filter(id => !found.includes(id));
@@ -42,7 +51,10 @@ export class NetworksService {
   }
 
   async update(id: number, dto: UpdateNetworkDto): Promise<NetworkResponseDto> {
-    const network = await this.networkRepository.findOne({ where: { id } });
+    const network = await this.networkRepository.findOne({ 
+      where: { id },
+      relations: ['imageUris']
+    });
     if (!network) throw new NotFoundException(`شبکه با شناسه ${id} یافت نشد`);
     Object.assign(network, dto);
     const saved = await this.networkRepository.save(network);
@@ -58,8 +70,8 @@ export class NetworksService {
   private map = (n: Network): NetworkResponseDto => ({
     id: n.id,
     name: n.name,
-    imageUris: n.imageUris || [],
-    createdAt: n.createdAt,
-    updatedAt: n.updatedAt,
+    imageUris: n.imageUris ? n.imageUris.reduce((p, c, i) => {
+      return [...p, { [c.type] : c.url }]
+    },[]) : [],
   });
 } 

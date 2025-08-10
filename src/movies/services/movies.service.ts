@@ -75,7 +75,7 @@ export class MoviesService {
       skip,
       take: limit,
       order: { createdAt: 'DESC' },
-      relations: ['genres', 'studios', 'networks', 'imageUris', 'casts'],
+      relations: ['genres', 'studios', 'networks', 'networks.imageUris', 'imageUris', 'casts'],
     });
 
     const totalPages = Math.ceil(totalResults / limit);
@@ -91,7 +91,7 @@ export class MoviesService {
   async findOne(id: number): Promise<MovieResponseDto> {
     const movie = await this.movieRepository.findOne({
       where: { id },
-      relations: ['genres', 'studios', 'networks', 'imageUris', 'casts'],
+      relations: ['genres', 'studios', 'networks', 'networks.imageUris', 'imageUris', 'casts', 'casts.person', 'casts.person.imageUris'],
     });
 
     if (!movie) {
@@ -104,7 +104,7 @@ export class MoviesService {
   async update(id: number, updateMovieDto: UpdateMovieDto): Promise<MovieResponseDto> {
     const movie = await this.movieRepository.findOne({
       where: { id },
-      relations: ['genres', 'studios', 'networks', 'imageUris', 'casts'],
+      relations: ['genres', 'studios', 'networks', 'networks.imageUris', 'imageUris', 'casts', 'casts.person', 'casts.person.imageUris'],
     });
 
     if (!movie) {
@@ -214,40 +214,20 @@ export class MoviesService {
       networks: movie.networks ? movie.networks.map(network => ({
         id: network.id,
         name: network.name,
-        imageUris: network.imageUris || [],
-        createdAt: network.createdAt,
-        updatedAt: network.updatedAt,
+        imageUris: network.imageUris ? network.imageUris.reduce((p, c, i) => {
+          return [...p, { [c.type] : c.url }]
+        },[]) : [],
       })) : [],
-      imageUris: movie.imageUris ? movie.imageUris.map(imageUri => ({
-        id: imageUri.id,
-        type: imageUri.type,
-        url: imageUri.url,
-        movieId: imageUri.movieId,
-        createdAt: imageUri.createdAt,
-        updatedAt: imageUri.updatedAt,
-      })) : [],
+      imageUris: movie.imageUris ? movie.imageUris.reduce((p, c, i) => {
+        return [...p, { [c.type] : c.url }]
+      },[]) : [],
       casts: movie.casts ? movie.casts.map(cast => ({
-        id: cast.id,
-        role: cast.role,
-        as: cast.as,
-        personId: cast.personId,
-        movieId: cast.movieId,
-        person: cast.person ? {
-          id: cast.person.id,
-          name: cast.person.name,
-          imageUris: cast.person.imageUris ? cast.person.imageUris.map(imageUri => ({
-            id: imageUri.id,
-            type: imageUri.type,
-            url: imageUri.url,
-            personId: imageUri.personId,
-            createdAt: imageUri.createdAt,
-            updatedAt: imageUri.updatedAt,
-          })) : [],
-          createdAt: cast.person.createdAt,
-          updatedAt: cast.person.updatedAt,
-        } : null,
-        createdAt: cast.createdAt,
-        updatedAt: cast.updatedAt,
+        id: cast.person.id,
+        name: cast.person.name,
+        role: cast.as,
+        imageUris:cast.person.imageUris ? cast.person.imageUris.reduce((p, c, i) => {
+          return [...p, { [c.type] : c.url }]
+        },[]) : [],
       })) : [],
       createdAt: movie.createdAt,
       updatedAt: movie.updatedAt,
