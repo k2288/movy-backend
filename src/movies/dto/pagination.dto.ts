@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsNumber, Min, Max } from 'class-validator';
+import { IsOptional, IsNumber, Min, Max, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
+import { MovieType } from '../entities/movie.entity';
 
 export class PaginationDto {
   @ApiProperty({ description: 'شماره صفحه', example: 1, required: false, default: 1 })
@@ -17,6 +18,11 @@ export class PaginationDto {
   @Min(1, { message: 'تعداد آیتم باید حداقل 1 باشد' })
   @Max(100, { message: 'تعداد آیتم نمی‌تواند بیشتر از 100 باشد' })
   limit?: number = 10;
+
+  @ApiProperty({ description: 'نوع صفحه', example: 'movie', required: false ,enum: MovieType })    
+  @IsOptional()
+  @IsString({ message: 'نوع صفحه باید یک رشته باشد' })
+  type?: MovieType;
 }
 
 export class PaginatedResponseDto<T> {

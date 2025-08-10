@@ -68,14 +68,15 @@ export class MoviesService {
   }
 
   async findAll(paginationDto: PaginationDto): Promise<PaginatedMovieResponseDto> {
-    const { page = 1, limit = 10 } = paginationDto;
+    const { page = 1, limit = 10, type } = paginationDto;
     const skip = (page - 1) * limit;
 
     const [movies, totalResults] = await this.movieRepository.findAndCount({
+      where: { type: type as MovieType },
       skip,
       take: limit,
       order: { createdAt: 'DESC' },
-      relations: ['genres', 'studios', 'networks', 'networks.imageUris', 'imageUris', 'casts'],
+      relations: ['genres', 'studios', 'networks', 'networks.imageUris', 'imageUris', 'casts', 'casts.person', 'casts.person.imageUris'],
     });
 
     const totalPages = Math.ceil(totalResults / limit);

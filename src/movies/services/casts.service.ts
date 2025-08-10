@@ -91,18 +91,10 @@ export class CastsService {
     return {
       id: cast.id,
       role: cast.role,
-      as: cast.as,
-      personId: cast.personId,
-      movieId: cast.movieId,
-      person: cast.person ? {
-        id: cast.person.id,
-        name: cast.person.name,
-        imageUris: cast.person.imageUris || [],
-        createdAt: cast.person.createdAt,
-        updatedAt: cast.person.updatedAt,
-      } as PersonResponseDto : null,
-      createdAt: cast.createdAt,
-      updatedAt: cast.updatedAt,
+      name: cast.person.name,
+      imageUris:cast.person.imageUris ? cast.person.imageUris.reduce((p, c, i) => {
+        return [...p, { [c.type] : c.url }]
+      },[]) : [],
     };
   }
 } 
