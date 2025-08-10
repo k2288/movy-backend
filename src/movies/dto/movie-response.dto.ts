@@ -55,9 +55,4 @@ export class MovieResponseDto {
   @ApiProperty({ description: 'بازیگران و عوامل فیلم', type: [CastResponseDto] })
   casts: CastResponseDto[];
 
-  @ApiProperty({ description: 'تاریخ ایجاد' })
-  createdAt: Date;
-
-  @ApiProperty({ description: 'تاریخ بروزرسانی' })
-  updatedAt: Date;
 } 

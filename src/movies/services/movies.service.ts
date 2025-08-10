@@ -229,8 +229,7 @@ export class MoviesService {
           return [...p, { [c.type] : c.url }]
         },[]) : [],
       })) : [],
-      createdAt: movie.createdAt,
-      updatedAt: movie.updatedAt,
+
     };
   }
 } 

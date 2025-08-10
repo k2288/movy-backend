@@ -32,7 +32,7 @@ export class ImageUri {
 
   @ApiProperty({ description: 'فیلم مربوطه', type: () => Movie })
   @ManyToOne(() => Movie, movie => movie.imageUris, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'movie_id' })
+  @JoinColumn({ name: 'movieId' })
   movie: Movie;
 
   @ApiProperty({ description: 'تاریخ ایجاد' })
